@@ -6,7 +6,8 @@
 	"image": "mcr.microsoft.com/devcontainers/javascript-node:1-20-bullseye",
 	"features": {
 		"ghcr.io/joshuanianji/devcontainer-features/mount-pnpm-store:0": {},
-		"ghcr.io/dhoeric/features/google-cloud-cli:1": {}
+		"ghcr.io/dhoeric/features/google-cloud-cli:1": {},
+		"ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
 	}
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
