@@ -4,7 +4,7 @@ import HomepageCard from '@/components/HomepageCard'
 import HomepageExtraCard from '@/components/HomepageExtraCard'
 import { ReactNode } from 'react';
 import { motion } from 'framer-motion';
-import { randomInt } from 'crypto';
+import Sparkles from '@/components/Sparkle';
 
 const Motionize: React.FC<{ children: ReactNode }> = ({ children }) => {
   const min = -5;
@@ -19,8 +19,11 @@ const Motionize: React.FC<{ children: ReactNode }> = ({ children }) => {
       whileHover={{ scale: 1.05, rotate: randomInt() }}
       whileTap={{ scale: 0.9 }}
     >
-      {children}
+      <Sparkles>
+        {children}
+      </Sparkles>
     </motion.button>
+
   )
 };
 
@@ -45,3 +48,21 @@ export default function Home() {
     </main>
   )
 }
+
+/*
+<Sparkles>
+          <Motionize>
+            <HomepageCard imgSrc='/imgs/trump.jpg' imgAlt='trump' title='Donald Trump' description='Tell him how you really think about him!' />
+          </Motionize>
+        </Sparkles>
+        <Sparkles>
+          <Motionize>
+            <HomepageCard imgSrc='/imgs/cat.jpg' imgAlt='anime catgirl' title='Anime Catgirl' description="You'll forget you're talking to an AI!" />
+          </Motionize>
+        </Sparkles>
+        <Sparkles>
+          <Motionize>
+            <HomepageExtraCard />
+          </Motionize>
+        </Sparkles>
+        */

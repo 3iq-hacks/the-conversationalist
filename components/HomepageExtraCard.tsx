@@ -1,6 +1,6 @@
 import { Card, Button, Badge } from 'flowbite-react'
 import Image from 'next/image'
-
+import Sparkles from './Sparkle'
 
 export default function Component() {
     return (
