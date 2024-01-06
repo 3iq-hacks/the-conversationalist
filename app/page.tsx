@@ -1,6 +1,28 @@
-import Image from 'next/image'
-import { Card, Button, Badge } from 'flowbite-react'
+'use client'
+
 import HomepageCard from '@/components/HomepageCard'
+import HomepageExtraCard from '@/components/HomepageExtraCard'
+import { ReactNode } from 'react';
+import { motion } from 'framer-motion';
+import { randomInt } from 'crypto';
+
+const Motionize: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const min = -5;
+  const max = 5;
+
+  const randomInt = () => {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+
+  return (
+    <motion.button
+      whileHover={{ scale: 1.05, rotate: randomInt() }}
+      whileTap={{ scale: 0.9 }}
+    >
+      {children}
+    </motion.button>
+  )
+};
 
 export default function Home() {
   return (
@@ -10,17 +32,15 @@ export default function Home() {
         <p className="mb-8 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 lg:px-48 dark:text-gray-400">Or talk to anime girls. We don&apos;t discriminate.</p>
       </div>
       <div className='flex flex-row h-full justify-evenly'>
-        <HomepageCard imgSrc='/imgs/trump.jpg' imgAlt='trump' title='Donald Trump' description='Tell him how you really think about him!' />
-        <HomepageCard imgSrc='/imgs/cat.jpg' imgAlt='anime catgirl' title='Anime Catgirl' description="You'll forget you're talking to an AI!" />
-        <Card className="w-[350px] text-center">
-          <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-            Create your own!
-          </h5>
-          <span className="flex flex-row justify-center">
-            <Badge className="ml-2">Coming soon!!</Badge>
-            <Image src="/imgs/kappa.png" width={20} height={20} alt="hehe" />
-          </span>
-        </Card>
+        <Motionize>
+          <HomepageCard imgSrc='/imgs/trump.jpg' imgAlt='trump' title='Donald Trump' description='Tell him how you really think about him!' />
+        </Motionize>
+        <Motionize>
+          <HomepageCard imgSrc='/imgs/cat.jpg' imgAlt='anime catgirl' title='Anime Catgirl' description="You'll forget you're talking to an AI!" />
+        </Motionize>
+        <Motionize>
+          <HomepageExtraCard />
+        </Motionize>
       </div>
     </main>
   )

@@ -1,5 +1,6 @@
+'use client'
+
 import Image from 'next/image'
-import { Card, Button, Badge } from 'flowbite-react'
 
 interface Props {
     imgSrc: string
