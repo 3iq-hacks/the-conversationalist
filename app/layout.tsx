@@ -18,15 +18,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-    <head>
-      <ThemeModeScript />
-    </head>
-    <body>
-      <Flowbite>
-        <Navbar />
-        {children}
-      </Flowbite>
-    </body>
-  </html>
+      <head>
+        <ThemeModeScript />
+      </head>
+      <body className='min-h-screen flex flex-col'>
+        <Flowbite>
+          <Navbar />
+          {children}
+        </Flowbite>
+      </body>
+    </html>
   )
 }
