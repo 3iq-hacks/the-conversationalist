@@ -52,21 +52,3 @@ export default function Home() {
     </main>
   )
 }
-
-/*
-<Sparkles>
-          <Motionize>
-            <HomepageCard imgSrc='/imgs/trump.jpg' imgAlt='trump' title='Donald Trump' description='Tell him how you really think about him!' />
-          </Motionize>
-        </Sparkles>
-        <Sparkles>
-          <Motionize>
-            <HomepageCard imgSrc='/imgs/cat.jpg' imgAlt='anime catgirl' title='Anime Catgirl' description="You'll forget you're talking to an AI!" />
-          </Motionize>
-        </Sparkles>
-        <Sparkles>
-          <Motionize>
-            <HomepageExtraCard />
-          </Motionize>
-        </Sparkles>
-        */
