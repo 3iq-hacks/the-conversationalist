@@ -7,6 +7,7 @@ import TextBar from '@/components/TextBar';
 import { useState } from 'react';
 
 //const dbInstance = collection(database, 'CHAT');
+var temp: any;
 
 export default function Component({ params }: { params: { id: string } }) {
 
@@ -14,7 +15,7 @@ export default function Component({ params }: { params: { id: string } }) {
 
   const childToParent = (childData: any) => {
     setData(childData.target.value)
-    //console.log(childData.target.value)
+    temp = childData.target
   }
   //const router = useRouter()
   const saveNote = () => {
@@ -26,6 +27,7 @@ export default function Component({ params }: { params: { id: string } }) {
     }).then((docRef) => {
       console.log("Document written with ID: ", docRef.id);
       console.log('note saved')
+      temp.value = '';
     })
   }
   return (
