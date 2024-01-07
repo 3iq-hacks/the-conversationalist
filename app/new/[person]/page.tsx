@@ -26,7 +26,7 @@ const getInitialPrompt = (name: string) => {
 }
 
 export default function Page({ params }: { params: { person: string } }) {
-    const router = useRouter()
+    const router = useRouter();
 
     useEffect(() => {
         async function createCollection() {
@@ -60,6 +60,7 @@ export default function Page({ params }: { params: { person: string } }) {
         }
 
         createCollection();
+
     }, []);
 
     return (
