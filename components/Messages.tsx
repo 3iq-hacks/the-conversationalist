@@ -1,12 +1,9 @@
 import { database } from '@/lib/firebase/config';
-import { collection, Timestamp, query, onSnapshot, getDocs } from 'firebase/firestore';
+import { collection, Timestamp, query, onSnapshot, getDocs, orderBy } from 'firebase/firestore';
 
 import { useState, useEffect } from 'react';
 import TextBubble, { Props as TextBubbleProps } from '@/components/TextBubble'
 
-// useEffect(() => {
-//   unsubscribe();
-// })
 
 export default function Component({ params }: { params: { id: string } }) {
   const dbInstance = collection(database, 'chats/' + params.id + '/messages');
@@ -14,7 +11,7 @@ export default function Component({ params }: { params: { id: string } }) {
   const [notesArray, setNotesArray] = useState<TextBubbleProps[]>([]);
 
   const getNotes = () => {
-    getDocs(dbInstance)
+    getDocs(query(dbInstance, orderBy('textTime', 'asc')))
       .then((docs) => {
         setNotesArray([]);
         console.log('Docs has ' + docs.size + ' elements')
@@ -30,12 +27,8 @@ export default function Component({ params }: { params: { id: string } }) {
   console.log('hello')
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setNotesArray([]);
-      getNotes();
-    }, 2000);
-    return () => clearInterval(interval);
-  });
+    getNotes();
+  }, []);
 
-  return <div>{notesArray.map((obj, i) => <TextBubble key={i} {...obj} />)}</div>
+  return <div className='flex flex-col space-y-3'>{notesArray.map((obj, i) => <TextBubble key={i} {...obj} />)}</div>
 }
