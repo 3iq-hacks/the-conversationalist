@@ -42,14 +42,14 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ vars.REGION }}-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.ARTIFACT_REPO }}/${{ vars.SERVICE_NAME }}:latest
+            ${{ vars.REGION }}-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.ARTIFACT_REPO }}/${{ vars.SERVICE_NAME }}:${{ inputs.ref }}
       
       - name: Create Service declaration   
         run: |-
-          export CONTAINER_IMAGE="${{ vars.REGION }}-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.ARTIFACT_REPO }}/${{ vars.SERVICE_NAME }}:latest"
+          export CONTAINER_IMAGE="${{ vars.REGION }}-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.ARTIFACT_REPO }}/${{ vars.SERVICE_NAME }}:${{ inputs.ref }}"
           export SERVICE_NAME="${{ vars.SERVICE_NAME }}"
           export PROJECT_ID="${{ vars.GCP_PROJECT_ID }}"
-          export REVISION_TAG="latest"
+          export REVISION_TAG="${{ inputs.ref }}"
           export CLOUD_RUN_SA="${{ vars.CLOUD_RUN_SA }}"
           export ENVIRONMENT="${{ inputs.environment }}"
           envsubst < ./service-yaml/container.yaml > container-${{ inputs.environment }}.yaml
