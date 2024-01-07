@@ -7,6 +7,10 @@ on:
         type: string
         required: true
         description: Name of the target environment.
+      ref:
+        type: string
+        required: true
+        description: The tag or SHA to checkout.
 
 jobs:
   deploy:
