@@ -7,8 +7,8 @@ export interface Props {
    time: Timestamp
 }
 
-function datify (time: any) {
-   const date = new Date(time * 1000)
+function datify (time: Timestamp) {
+   const date = new Date(time.seconds * 1000)
    return date.toLocaleTimeString()
 }
 

@@ -3,6 +3,7 @@ import { collection, Timestamp, query, onSnapshot, getDocs } from 'firebase/fire
 
 import { useState, useEffect } from 'react';
 import TextBubble, {Props as TextBubbleProps } from '@/components/TextBubble'
+import { set } from 'firebase/database';
 
 var messages: any[];
 
@@ -42,13 +43,18 @@ export default function Component({ params }: { params: { id: string } }) {
  
   const getNotes = () => {
          getDocs(dbInstance)
-             .then((data: any) => {
+             .then((docs: any) => {
+              setNotesArray([]);
+              docs.forEach((doc: any) => {
               
                 //  setNotesArray(data.docs.map((item: any) => {
                 //   console.log(item.data())
                 //  })
+                const data = doc.data();
                 const newElem: TextBubbleProps = {author: data.textAuthor, description: data.textContent, time: data.textTime};
-                setNotesArray([...notesArray, newElem])
+                setNotesArray(() => [...notesArray, newElem])
+                console.log(data.textTime)
+              })
 
 
                      //return { ...item.data(), id: item.id }
@@ -61,8 +67,9 @@ export default function Component({ params }: { params: { id: string } }) {
 
   useEffect(() => {
     const interval = setInterval(() => {
+      setNotesArray([]);
       getNotes();
-    }, 5000);
+    }, 2000);
     return () => clearInterval(interval);
   });
   
