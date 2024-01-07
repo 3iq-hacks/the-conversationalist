@@ -27,6 +27,6 @@ body {
 }
 
 .landinganimation {
-  width: 1000px;
-  height: 1000px;
+  width: 100vw;
+  height: 100%;
 }

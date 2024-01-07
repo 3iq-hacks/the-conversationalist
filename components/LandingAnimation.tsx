@@ -1,24 +1,22 @@
 'use client'
 import React from 'react';
-import { motion } from "framer-motion";
+import { motion, useAnimate } from "framer-motion";
 
 
 
-export const LandingAnimations:React.FC<React.PropsWithChildren<{}>> = ({ children })=> {
+export const LandingAnimations: React.FC<React.PropsWithChildren<{}>> = ({ children }) => {
   return (
     <motion.div
       className="landinganimation"
       animate={{
-        scale: [1, 0.5, 0.9, 0.6, 0.2],
-        rotate: [0, 0, 180, 180, 0],
-        borderRadius: ["0%", "0%", "50%", "50%", "0%"],
+        scale: [1, 1.2, 1, 1.2, 1, 1.2, 1, 1.2, 1],
+        rotate: [0, 0, 180, 180, 180, 180, 0, 0, 0],
       }}
       transition={{
-        duration: 2,
+        duration: 1.6,
         ease: "easeInOut",
-        times: [0, 0.2, 0.5, 0.8, 1],
-        repeat: Infinity,   
-        repeatDelay: 1,
+        times: [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, .875, 1],
+        repeat: 8,
       }}
     >{children}</motion.div>
   );
