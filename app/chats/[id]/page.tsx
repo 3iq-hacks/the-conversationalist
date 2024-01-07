@@ -16,6 +16,7 @@ export default function Page({ params }: { params: { id: string } }) {
   const dbInstance = collection(database, 'chats/' + params.id + '/messages');
 
   const [notesArray, setNotesArray] = useState<TextBubbleProps[]>([]);
+  const [chatInfo, setChatInfo] = useState<any>(null);
 
   const getNotes = () => {
     getDocs(query(dbInstance, orderBy('textTime', 'asc')))
@@ -24,7 +25,7 @@ export default function Page({ params }: { params: { id: string } }) {
         console.log('Docs has ' + docs.size + ' elements')
         docs.forEach((doc: any) => {
           const data = doc.data();
-          const newElem: TextBubbleProps = { author: data.textAuthor, description: data.textContent, time: data.textTime };
+          const newElem: TextBubbleProps = { author: data.textAuthor, description: data.textContent, time: data.textTime, model: 'unknown' };
           setNotesArray(arr => [...arr, newElem]);
         })
       });
@@ -33,6 +34,10 @@ export default function Page({ params }: { params: { id: string } }) {
   console.log('hello')
 
   useEffect(() => {
+    getDoc(chatDocRef).then((docSnap) => {
+      const chatData = docSnap.data();
+      setChatInfo(chatData);
+    })
     getNotes();
   }, []);
 
@@ -59,14 +64,6 @@ export default function Page({ params }: { params: { id: string } }) {
     // now, send a request to api/note.ts 
     // to generate a response
 
-    const docSnap = await getDoc(chatDocRef);
-    const currChatData = docSnap.data();
-    console.log('currChatData: ', currChatData)
-    if (!currChatData) {
-      console.error('currChatData is null')
-      return;
-    }
-
     // get 5 most recent messages
     const messagesQuery = query(dbInstance, orderBy('textTime', 'desc'), limit(5));
     const messagesDocs = await getDocs(messagesQuery);
@@ -84,8 +81,8 @@ export default function Page({ params }: { params: { id: string } }) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        model: currChatData.model,
-        initialPrompt: currChatData.initialPrompt,
+        model: chatInfo.model,
+        initialPrompt: chatInfo.initialPrompt,
         messages: messagesArray
       })
     });
@@ -108,7 +105,7 @@ export default function Page({ params }: { params: { id: string } }) {
     <div className="grid">
       <div style={{ width: "100vw", marginBottom: "50px", maxHeight: "80vh", overflowY: "scroll" }}>
         <div className='flex flex-col space-y-3'>
-          {notesArray.map((obj, i) => <TextBubble key={i} {...obj} />)}
+          {notesArray.map((obj, i) => <TextBubble key={i} model={chatInfo.model} author={obj.author} description={obj.description} time={obj.time} />)}
         </div>
       </div>
       <div className="fixed bottom-3" style={{ width: "100vw", height: "50px" }}>
