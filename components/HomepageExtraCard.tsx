@@ -3,7 +3,7 @@ import Image from 'next/image'
 
 export default function Component() {
     return (
-        <Card className="w-[350px] text-center">
+        <Card className="w-[350px] text-center height-fill">
             <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                 Create your own!
             </h5>
