@@ -6,14 +6,14 @@ import { Button } from 'flowbite-react';
 import TextBar from '@/components/TextBar';
 import { useState } from 'react';
 import TextStrip from '@/components/TextStrip'
- 
+
 //const dbInstance = collection(database, 'CHAT');
 
-export default function Page({params}: {params: {id: string }}) {
+export default function Page({ params }: { params: { id: string } }) {
 
   const [data, setData] = useState('');
 
-  const childToParent = (childData) => {
+  const childToParent = (childData: any) => {
     setData(childData.target.value)
     //console.log(childData.target.value)
   }
@@ -21,12 +21,12 @@ export default function Page({params}: {params: {id: string }}) {
   const saveNote = () => {
     const dbInstance = collection(database, params.id)
     addDoc(dbInstance, {
-        textContent: data,
-        textTime: Timestamp.now(),
-        textAuthor: "user"
+      textContent: data,
+      textTime: Timestamp.now(),
+      textAuthor: "user"
     }).then((docRef) => {
-        console.log("Document written with ID: ", docRef.id);
-        console.log('note saved')
+      console.log("Document written with ID: ", docRef.id);
+      console.log('note saved')
     })
   }
   return (
