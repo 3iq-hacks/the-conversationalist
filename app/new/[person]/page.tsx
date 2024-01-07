@@ -36,7 +36,7 @@ export default function Page({ params }: { params: { person: string } }) {
                 // create a new firebase collection inside /chats
                 // and redirect to /chats/:id
                 const chats = collection(database, 'chats');
-                console.log('Created new db instance: ', chats)
+                console.log('Got chats collection: ', chats)
                 const chatDocRef = await addDoc(chats, {
                     createdAt: Timestamp.now(),
                     model: getGPTModel(params.person),
