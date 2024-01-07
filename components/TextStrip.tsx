@@ -29,11 +29,12 @@ export default function Component({ params }: { params: { id: string } }) {
     })
   }
   return (
-    <div className="mx-auto">
+    <div className="flex max-w-full" style={{width: "100vw"}}>
       <TextBar childToParent={childToParent}></TextBar>
       <Button
         pill
         className="max-w-sm flex flex-wrap"
+        style={{marginRight: "auto"}}
         onClick={saveNote}>
         Save Note
       </Button>

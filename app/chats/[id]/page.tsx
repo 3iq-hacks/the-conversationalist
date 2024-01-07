@@ -2,8 +2,8 @@
 
 import { app, database } from '@/lib/firebase/config';
 import { collection, addDoc, Timestamp } from 'firebase/firestore';
-import { Button } from 'flowbite-react';
-import TextBar from '@/components/TextBar';
+//import { Button } from 'flowbite-react';
+//import TextBar from '@/components/TextBar';
 import { useState } from 'react';
 import TextStrip from '@/components/TextStrip'
 
@@ -29,8 +29,15 @@ export default function Page({ params }: { params: { id: string } }) {
       console.log('note saved')
     })
   }
+
   return (
-    <TextStrip params={params}></TextStrip>
+    <div>
+      <div style={{width: "100vw"}}>
+      </div>
+      <div className="fixed bottom-3" style={{width: "100vw"}}>
+        <TextStrip params={params} />
+      </div>
+    </div>
   )
 }
 
