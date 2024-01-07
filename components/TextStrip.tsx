@@ -5,11 +5,10 @@ import { collection, addDoc, Timestamp } from 'firebase/firestore';
 import { Button } from 'flowbite-react';
 import TextBar from '@/components/TextBar';
 import { useState } from 'react';
-import TextStrip from '@/components/TextStrip'
  
 //const dbInstance = collection(database, 'CHAT');
 
-export default function Page({params}: {params: {id: string }}) {
+export default function Component({params}: {params: {id: string }}) {
 
   const [data, setData] = useState('');
 
@@ -30,13 +29,14 @@ export default function Page({params}: {params: {id: string }}) {
     })
   }
   return (
-    <TextStrip params={params}></TextStrip>
-  )
-}
-
-/*
-<Button onClick={saveNote}>
+    <div className="mx-auto">
+      <TextBar childToParent={childToParent}></TextBar>
+      <Button
+        pill
+        className="max-w-sm flex flex-wrap"
+        onClick={saveNote}>
         Save Note
       </Button>
-      <TextBar childToParent={childToParent}></TextBar>
-      */
+    </div>
+  )
+}
