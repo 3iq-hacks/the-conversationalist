@@ -18,14 +18,22 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-
-      # https://github.com/docker/login-action/tree/v3?tab=readme-ov-file#service-account-based-authentication-1
-      - name: Login to GAR
-        uses: docker/login-action@v2
+      
+      - name: Google Auth
+        id: auth
+        uses: 'google-github-actions/auth@v0'
         with:
-          registry: ${{ vars.REGION }}-docker.pkg.dev
-          username: _json_key
-          password: ${{ secrets.SERVICE_ACCOUNT_KEY_JSON }}
+          token_format: 'access_token'
+          workload_identity_provider: '${{ secrets.WIF_PROVIDER }}'
+          service_account: '${{ secrets.WIF_SERVICE_ACCOUNT }}'
+
+      - name: Log ingo Google Artifact Registry
+        id: docker-auth
+        uses: 'docker/login-action@v1'
+        with:
+          username: 'oauth2accesstoken'
+          password: '${{ steps.auth.outputs.access_token }}'
+          registry: '${{ vars.REGION }}-docker.pkg.dev'
 
       - name: Build, tag and push container
         id: build-image
