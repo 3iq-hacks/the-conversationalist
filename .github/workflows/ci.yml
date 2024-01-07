@@ -1,0 +1,17 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  prod: 
+    if: ${{ github.ref == 'refs/heads/main' || github.base_ref == 'main' }}
+    uses: ./.github/workflows/_deployment.yml
+    permissions: 
+      id-token: write
+      contents: read
+    with:
+      environment: prod
+      ref: ${{ github.sha }}
+    secrets: inherit
