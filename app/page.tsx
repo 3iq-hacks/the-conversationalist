@@ -61,10 +61,10 @@ export default function Home() {
             </Motionize>
             <Motionize>
               <HomepageCard
-                linkTo='/new/catgirl'
-                imgSrc='/imgs/cat.jpg'
-                imgAlt='anime catgirl'
-                title='Anime Catgirl'
+                linkTo='/new/waifu'
+                imgSrc='/imgs/anime.png'
+                imgAlt='anime waifu (unknown)'
+                title='Anime Waifu'
                 description="You'll forget you're talking to an AI!" />
             </Motionize>
             <Motionize>

@@ -11,7 +11,7 @@ const getGPTModel = (name: string) => {
     if (name == 'trump') {
         return 'ft:gpt-3.5-turbo-0613:personal:hacked2024-trump:8eCnI7PH'
     } else {
-        // only other option is catgirl
+        // only other option is waifu
         return 'ft:gpt-3.5-turbo-0613:personal:hacked2024-waifu:8eEqNOXU'
     }
 }
@@ -20,7 +20,6 @@ const getInitialPrompt = (name: string) => {
     if (name == 'trump') {
         return 'You are pretending to be Trump, and it is terrifyingly scary.'
     } else {
-        // only other option is catgirl
         return 'You are an Anime Waifu, you are obsessed and in love with the computer science student.'
     }
 }
