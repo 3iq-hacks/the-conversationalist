@@ -44,9 +44,9 @@ export default function Page({ params }: { params: { person: string } }) {
                 // add a collection into charDocRef. This is the messages into the chat
                 const messagesCollection = collection(chatDocRef, 'messages');
                 const messagesDocRef = await addDoc(messagesCollection, {
-                    createdAt: Timestamp.now(),
-                    text: getInitialPrompt(params.person),
-                    role: 'server'
+                    textTime: Timestamp.now(),
+                    textContent: getInitialPrompt(params.person),
+                    textAuthor: 'server'
                 });
                 console.log('Created new message document: ', messagesDocRef.id)
 
