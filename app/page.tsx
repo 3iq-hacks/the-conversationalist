@@ -5,6 +5,7 @@ import HomepageExtraCard from '@/components/HomepageExtraCard'
 import { ReactNode } from 'react';
 import { motion } from 'framer-motion';
 import Sparkles from '@/components/Sparkle';
+import { LandingAnimations }  from '@/components/LandingAnimation';
 
 const Motionize: React.FC<{ children: ReactNode }> = ({ children }) => {
   const min = -5;
@@ -29,6 +30,7 @@ const Motionize: React.FC<{ children: ReactNode }> = ({ children }) => {
 
 export default function Home() {
   return (
+    <LandingAnimations>
     <main className="bg-white dark:bg-gray-800 flex-grow flex flex-col">
       <div className="py-6 px-4 mx-auto max-w-screen-xl text-center lg:py-16">
         <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">Revive the dead</h1>
@@ -50,5 +52,7 @@ export default function Home() {
         <p className="">Code is available on <a href="https://github.com/3iq-hacks/hacked-2024" className="underline hover:bg-slate-200 dark:hover:bg-slate-600 py-0.5 rounded-sm">GitHub</a></p>
       </footer>
     </main>
+    </LandingAnimations>
+    
   )
 }

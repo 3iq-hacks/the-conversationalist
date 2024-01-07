@@ -25,3 +25,8 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+.landinganimation {
+  width: 1000px;
+  height: 1000px;
+}
