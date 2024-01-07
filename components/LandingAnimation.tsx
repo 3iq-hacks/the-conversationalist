@@ -16,7 +16,7 @@ export const LandingAnimations: React.FC<React.PropsWithChildren<{}>> = ({ child
         duration: 1.6,
         ease: "easeInOut",
         times: [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, .875, 1],
-        repeat: 1,
+        repeat: 8,
       }}
     >{children}</motion.div>
   );

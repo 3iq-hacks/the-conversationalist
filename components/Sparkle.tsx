@@ -28,12 +28,11 @@ export interface SparklesProps {
 }
 export const Sparkles: React.FC<React.PropsWithChildren<SparklesProps>> = ({ color = DEFAULT_COLOR, children, ...delegated }) => {
   const [sparkles, setSparkles] = React.useState(() => {
-    return range(0).map(() => generateSparkle(color));
+    return range(3).map(() => generateSparkle(color));
   });
   const prefersReducedMotion = usePrefersReducedMotion();
   useRandomInterval(
     () => {
-      return;
       const sparkle = generateSparkle(color);
       const now = Date.now();
       const nextSparkles = sparkles.filter(sp => {
