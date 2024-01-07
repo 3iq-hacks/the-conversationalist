@@ -1,16 +1,21 @@
 import { Timestamp } from "firebase/firestore";
 import { Button } from "flowbite-react";
 
-interface Props {
+export interface Props {
    author: string
    description: string
    time: Timestamp
 }
 
+function datify (time: any) {
+   const date = new Date(time * 1000)
+   return date.toLocaleTimeString()
+}
+
 export default function Component(props: Props) {
   return (
    <div>
-    <p>{props.time.seconds}</p>
+    <p>{datify(props.time)}</p>
     <p>{props.author}</p>
     <p>{props.description}</p>
    </div>
