@@ -6,40 +6,23 @@ import { collection, addDoc, Timestamp } from 'firebase/firestore';
 //import TextBar from '@/components/TextBar';
 import { useState } from 'react';
 import TextStrip from '@/components/TextStrip'
+import Messages from '@/components/Messages'
 
 //const dbInstance = collection(database, 'CHAT');
 
-export default function Page({ params }: { params: { id: string } }) {
-
-  const [data, setData] = useState('');
-
-  const childToParent = (childData: any) => {
-    setData(childData.target.value)
-    //console.log(childData.target.value)
-  }
-  //const router = useRouter()
-  const saveNote = () => {
-    const dbInstance = collection(database, params.id)
-    addDoc(dbInstance, {
-      textContent: data,
-      textTime: Timestamp.now(),
-      textAuthor: "user"
-    }).then((docRef) => {
-      console.log("Document written with ID: ", docRef.id);
-      console.log('note saved')
-    })
-  }
-
+export default function Page({ params }: { params: { id: string } }) {  
+  
   return (
-    <div>
-      <div style={{width: "100vw"}}>
+    <div className="grid">
+      <div style={{width: "100vw", marginBottom: "50px", maxHeight: "80vh", overflowY: "scroll"}}>
+        <Messages params={params} />
       </div>
-      <div className="fixed bottom-3" style={{width: "100vw"}}>
+      <div className="fixed bottom-3" style={{width: "100vw", height: "50px"}}>
         <TextStrip params={params} />
       </div>
     </div>
   )
-}
+}  
 
 /*
 <Button onClick={saveNote}>
