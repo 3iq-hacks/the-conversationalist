@@ -5,7 +5,6 @@ import HomepageExtraCard from '@/components/HomepageExtraCard'
 import { ReactNode } from 'react';
 import { motion } from 'framer-motion';
 import Sparkles from '@/components/Sparkle';
-import { LandingAnimations }  from '@/components/LandingAnimation';
 
 const Motionize: React.FC<{ children: ReactNode }> = ({ children }) => {
   const min = -5;
@@ -38,10 +37,20 @@ export default function Home() {
       </div>
       <div className='flex md:flex-row flex-col h-full md:justify-evenly md:space-y-0 space-y-8'>
         <Motionize>
-          <HomepageCard imgSrc='/imgs/trump.jpg' imgAlt='trump' title='Donald Trump' description='Tell him how you really think about him!' />
+          <HomepageCard
+            linkTo='/new/trump'
+            imgSrc='/imgs/trump.jpg'
+            imgAlt='trump'
+            title='Donald Trump'
+            description='Tell him how you really think about him!' />
         </Motionize>
         <Motionize>
-          <HomepageCard imgSrc='/imgs/cat.jpg' imgAlt='anime catgirl' title='Anime Catgirl' description="You'll forget you're talking to an AI!" />
+          <HomepageCard
+            linkTo='/new/catgirl'
+            imgSrc='/imgs/cat.jpg'
+            imgAlt='anime catgirl'
+            title='Anime Catgirl'
+            description="You'll forget you're talking to an AI!" />
         </Motionize>
         <Motionize>
           <HomepageExtraCard />

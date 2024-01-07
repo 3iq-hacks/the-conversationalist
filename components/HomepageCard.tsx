@@ -1,8 +1,10 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 
 interface Props {
+    linkTo: string
     imgSrc: string
     imgAlt: string
     title: string
