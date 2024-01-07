@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <ThemeModeScript />
-        <title>HackED 2024</title>
+        <title>The Conversationalist</title>
       </head>
       <body className='min-h-screen flex flex-col'>
         <Flowbite>
