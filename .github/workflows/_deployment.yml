@@ -38,7 +38,7 @@ jobs:
       
       - name: Create Service declaration   
         run: |-
-          export CONTAINER_IMAGE="${{ vars.REGION }}-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.ARTIFACT_REPO }}/${{ vars.SERVICE_NAME }}:${{ inputs.ref }}"
+          export CONTAINER_IMAGE="${{ vars.REGION }}-docker.pkg.dev/${{ vars.GCP_PROJECT_ID }}/${{ vars.ARTIFACT_REPO }}/${{ vars.SERVICE_NAME }}:latest"
           export SERVICE_NAME="${{ vars.SERVICE_NAME }}"
           export PROJECT_ID="${{ vars.GCP_PROJECT_ID }}"
           export REVISION_TAG="${{ inputs.ref }}"
