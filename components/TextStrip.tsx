@@ -1,12 +1,12 @@
 'use client'
 
 import { app, database } from '@/lib/firebase/config';
-import { collection, addDoc, Timestamp } from 'firebase/firestore';
+import { collection, addDoc, Timestamp, documentId, DocumentReference, doc } from 'firebase/firestore';
 import { Button } from 'flowbite-react';
 import TextBar from '@/components/TextBar';
 import { useState } from 'react';
 
-//const dbInstance = collection(database, 'CHAT');
+const dbInstance = collection(database, 'chats');
 var temp: any;
 
 export default function Component({ params }: { params: { id: string } }) {
@@ -19,12 +19,22 @@ export default function Component({ params }: { params: { id: string } }) {
   }
   //const router = useRouter()
   const saveNote = () => {
-    const dbInstance = collection(database, params.id)
-    addDoc(dbInstance, {
+    //const dbInstance = collection(database, params.id)
+
+    const docRef = doc(dbInstance, params.id)
+    const collectionRef = collection(docRef, 'messages')
+    //.collection('messages')
+    addDoc(collectionRef, {
       textContent: data,
       textTime: Timestamp.now(),
       textAuthor: "user"
-    }).then((docRef) => {
+    })
+    /*addDoc(dbInstance, {
+      textContent: data,
+      textTime: Timestamp.now(),
+      textAuthor: "user"
+    })*/
+    .then((docRef) => {
       console.log("Document written with ID: ", docRef.id);
       console.log('note saved')
       temp.value = '';
