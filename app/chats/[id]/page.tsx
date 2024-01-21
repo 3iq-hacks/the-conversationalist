@@ -75,6 +75,8 @@ export default function Page({ params }: { params: { id: string } }) {
         content: data.textContent
       });
     })
+    // reverse messagesArray so that it is in chronological order
+    messagesArray.reverse();
     const response = await fetch('/api', {
       method: 'POST',
       headers: {
