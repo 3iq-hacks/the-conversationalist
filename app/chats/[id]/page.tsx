@@ -134,22 +134,20 @@ export default function Page({ params }: { params: { id: string } }) {
           {notesArray.map((obj, i) => <TextBubble key={i} model={chatInfo.model} author={obj.author} description={obj.description} time={obj.time} />)}
         </div>
       </div>
-      <div className="fixed bottom-3" style={{ width: "100vw", height: "50px" }}>
-        <div className="flex flex-row justify-center space-x-4">
-          <input
-            type="text"
-            name="textInput"
-            onInput={onInput}
-            onKeyDown={handleKeydown}
-            className="h-full w-3/4 bg-gray-50 h-auto border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          />
-          <Button
-            pill
-            className="flex flex-wrap"
-            onClick={saveNote}>
-            Send
-          </Button>
-        </div>
+      <div className="flex fixed bottom-3 flex-row justify-center space-x-4 w-full">
+        <input
+          type="text"
+          name="textInput"
+          onInput={onInput}
+          onKeyDown={handleKeydown}
+          className="h-full w-3/4 bg-gray-50 h-auto border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        />
+        <Button
+          pill
+          className="flex flex-wrap"
+          onClick={saveNote}>
+          Send
+        </Button>
       </div>
     </div>
   )
