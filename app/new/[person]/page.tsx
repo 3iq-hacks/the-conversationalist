@@ -4,6 +4,7 @@ import { collection, addDoc, Timestamp } from 'firebase/firestore';
 import { app, database } from '@/lib/firebase/config';
 import { use, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Head from 'next/head';
 
 // VERY BAD PROGRAMMING 
 // WOOOOOOOOOOOOOOO
@@ -67,6 +68,9 @@ export default function Page({ params }: { params: { person: string } }) {
 
     return (
         <div>
+            <Head>
+                <title>New Conversation Loading...</title>
+            </Head>
             <h1>Loading :3</h1>
         </div>
     )

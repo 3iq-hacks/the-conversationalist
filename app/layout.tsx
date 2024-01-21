@@ -21,6 +21,7 @@ export default function RootLayout({
       <head>
         <ThemeModeScript />
         <title>The Conversationalist</title>
+        <link rel="icon" href="/imgs/favicon.png" />
       </head>
       <body className='min-h-screen flex flex-col'>
         <Flowbite>
