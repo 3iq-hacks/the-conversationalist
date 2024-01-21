@@ -44,7 +44,7 @@ export default function Page({ params }: { params: { id: string } }) {
   /// TEXT INPUT
   const [textInput, setTextInput] = useState('');
 
-  const childToParent = (childData: any) => {
+  const onInput = (childData: any) => {
     setTextInput(childData.target.value)
     temp = childData.target
   }
@@ -114,12 +114,16 @@ export default function Page({ params }: { params: { id: string } }) {
         </div>
       </div>
       <div className="fixed bottom-3" style={{ width: "100vw", height: "50px" }}>
-        <div className="flex max-w-full" style={{ width: "100vw" }}>
-          <TextBar childToParent={childToParent}></TextBar>
+        <div className="flex flex-row justify-center space-x-4">
+          <input
+            type="text"
+            name="textInput"
+            onInput={onInput}
+            className="h-full w-3/4 bg-gray-50 h-auto border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+          />
           <Button
             pill
-            className="max-w-sm flex flex-wrap"
-            style={{ marginRight: "auto" }}
+            className="flex flex-wrap"
             onClick={saveNote}>
             Send
           </Button>
