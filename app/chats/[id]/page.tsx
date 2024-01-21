@@ -2,11 +2,10 @@
 
 import { database } from '@/lib/firebase/config';
 import { collection, Timestamp, query, onSnapshot, getDocs, orderBy, addDoc, doc, getDoc, limit } from 'firebase/firestore';
-import TextStrip from '@/components/TextStrip'
 import { useState, useEffect } from 'react';
 import TextBubble, { Props as TextBubbleProps } from '@/components/TextBubble'
-import TextBar from '@/components/TextBar';
 import { Button } from 'flowbite-react';
+import Head from 'next/head';
 
 
 var temp: any;
@@ -20,7 +19,7 @@ export default function Page({ params }: { params: { id: string } }) {
 
   const getNotes = () => {
     getDocs(query(dbInstance, orderBy('textTime', 'asc')))
-      .then((docs) => {
+      .then(docs => {
         setNotesArray([]);
         console.log('Docs has ' + docs.size + ' elements')
         docs.forEach((doc: any) => {
@@ -28,10 +27,17 @@ export default function Page({ params }: { params: { id: string } }) {
           const newElem: TextBubbleProps = { author: data.textAuthor, description: data.textContent, time: data.textTime, model: 'unknown' };
           setNotesArray(arr => [...arr, newElem]);
         })
-      });
+        // set scroll to bottom of #scroll-container
+        // but after a delay of 250ms
+        // so that the messages have time to load
+        setTimeout(() => {
+          const scrollContainer = document.getElementById('scroll-container');
+          if (scrollContainer) {
+            scrollContainer.scrollIntoView(false);
+          }
+        }, 250);
+      })
   }
-
-  console.log('hello')
 
   useEffect(() => {
     getDoc(chatDocRef).then((docSnap) => {
@@ -44,18 +50,30 @@ export default function Page({ params }: { params: { id: string } }) {
   /// TEXT INPUT
   const [textInput, setTextInput] = useState('');
 
-  const childToParent = (childData: any) => {
+  const handleKeydown = (e: any) => {
+    if (e.key === 'Enter') {
+      saveNote();
+    }
+  }
+
+  const onInput = (childData: any) => {
     setTextInput(childData.target.value)
     temp = childData.target
   }
   //const router = useRouter()
   const saveNote = async () => {
+    if (textInput === '') {
+      return;
+    }
+
     const docRef = await addDoc(dbInstance, {
       textContent: textInput,
       textTime: Timestamp.now(),
       textAuthor: "user"
     })
     temp.value = '';
+
+    setTextInput('');
 
     console.log("Document written with ID: ", docRef.id);
     console.log('note saved');
@@ -75,6 +93,8 @@ export default function Page({ params }: { params: { id: string } }) {
         content: data.textContent
       });
     })
+    // reverse messagesArray so that it is in chronological order
+    messagesArray.reverse();
     const response = await fetch('/api', {
       method: 'POST',
       headers: {
@@ -103,22 +123,31 @@ export default function Page({ params }: { params: { id: string } }) {
 
   return (
     <div className="grid">
+      <Head>
+        <title>Chat with {chatInfo ? chatInfo.person : 'Loading...'} - The Conversationalist</title>
+      </Head>
+      <h1 className="w-full text-center text-2xl p-2">
+        {chatInfo ? `Talking to ${chatInfo.person}` : 'Loading...'}
+      </h1>
       <div style={{ width: "100vw", marginBottom: "50px", maxHeight: "80vh", overflowY: "scroll" }}>
-        <div className='flex flex-col space-y-3'>
+        <div className='flex flex-col space-y-3' id='scroll-container'>
           {notesArray.map((obj, i) => <TextBubble key={i} model={chatInfo.model} author={obj.author} description={obj.description} time={obj.time} />)}
         </div>
       </div>
-      <div className="fixed bottom-3" style={{ width: "100vw", height: "50px" }}>
-        <div className="flex max-w-full" style={{ width: "100vw" }}>
-          <TextBar childToParent={childToParent}></TextBar>
-          <Button
-            pill
-            className="max-w-sm flex flex-wrap"
-            style={{ marginRight: "auto" }}
-            onClick={saveNote}>
-            Send
-          </Button>
-        </div>
+      <div className="flex fixed bottom-3 flex-row justify-center space-x-4 w-full">
+        <input
+          type="text"
+          name="textInput"
+          onInput={onInput}
+          onKeyDown={handleKeydown}
+          className="h-full w-3/4 bg-gray-50 h-auto border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+        />
+        <Button
+          pill
+          className="flex flex-wrap"
+          onClick={saveNote}>
+          Send
+        </Button>
       </div>
     </div>
   )

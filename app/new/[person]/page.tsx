@@ -4,6 +4,7 @@ import { collection, addDoc, Timestamp } from 'firebase/firestore';
 import { app, database } from '@/lib/firebase/config';
 import { use, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Head from 'next/head';
 
 // VERY BAD PROGRAMMING 
 // WOOOOOOOOOOOOOOO
@@ -25,6 +26,14 @@ const getInitialPrompt = (name: string) => {
     }
 }
 
+const getName = (name: string) => {
+    if (name == 'trump') {
+        return 'Donald Trump'
+    } else {
+        return 'Waifu'
+    }
+}
+
 export default function Page({ params }: { params: { person: string } }) {
     const router = useRouter();
 
@@ -40,7 +49,8 @@ export default function Page({ params }: { params: { person: string } }) {
                 const chatDocRef = await addDoc(chats, {
                     createdAt: Timestamp.now(),
                     model: getGPTModel(params.person),
-                    initialPrompt: getInitialPrompt(params.person)
+                    initialPrompt: getInitialPrompt(params.person),
+                    person: getName(params.person),
                 });
                 console.log('Created new chat document: ', chatDocRef.id)
 
@@ -58,6 +68,9 @@ export default function Page({ params }: { params: { person: string } }) {
 
     return (
         <div>
+            <Head>
+                <title>New Conversation Loading...</title>
+            </Head>
             <h1>Loading :3</h1>
         </div>
     )

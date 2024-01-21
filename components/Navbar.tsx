@@ -9,7 +9,7 @@ export default function Component() {
     <Navbar fluid>
       <Navbar.Brand as={Link} href="/">
         <Image src="/cat.webp" width={24} height={24} alt="Flowbite React Logo" />
-        <span className="self-center whitespace-nowrap text-xl font-semibold text-black dark:text-white pl-2">A 3IQ Hacks Creation</span>
+        <span className="self-center whitespace-nowrap text-xl font-semibold text-black dark:text-white pl-2">The Conversationalist</span>
       </Navbar.Brand>
       <Navbar.Toggle />
       <Navbar.Collapse>
