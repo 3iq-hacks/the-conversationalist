@@ -103,6 +103,9 @@ export default function Page({ params }: { params: { id: string } }) {
 
   return (
     <div className="grid">
+      <h1 className="w-full text-center text-2xl p-2">
+        {chatInfo ? `Talking to ${chatInfo.person}` : 'Loading...'}
+      </h1>
       <div style={{ width: "100vw", marginBottom: "50px", maxHeight: "80vh", overflowY: "scroll" }}>
         <div className='flex flex-col space-y-3'>
           {notesArray.map((obj, i) => <TextBubble key={i} model={chatInfo.model} author={obj.author} description={obj.description} time={obj.time} />)}

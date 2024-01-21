@@ -25,6 +25,14 @@ const getInitialPrompt = (name: string) => {
     }
 }
 
+const getName = (name: string) => {
+    if (name == 'trump') {
+        return 'Donald Trump'
+    } else {
+        return 'Waifu'
+    }
+}
+
 export default function Page({ params }: { params: { person: string } }) {
     const router = useRouter();
 
@@ -33,17 +41,6 @@ export default function Page({ params }: { params: { person: string } }) {
             try {
                 console.log('Creating new collection')
 
-                // test firestore connection
-                console.log('Testing firestore connection...')
-                const testDocRef = collection(database, 'test');
-                console.log('Got test collection: ', testDocRef)
-                const testDoc = await addDoc(testDocRef, {
-                    createdAt: Timestamp.now(),
-                    test: true,
-                    nodeEnv: process.env.NODE_ENV
-                });
-                console.log('Created test document: ', testDoc.id)
-
                 // create a new firebase collection inside /chats
                 // and redirect to /chats/:id
                 const chats = collection(database, 'chats');
@@ -51,7 +48,8 @@ export default function Page({ params }: { params: { person: string } }) {
                 const chatDocRef = await addDoc(chats, {
                     createdAt: Timestamp.now(),
                     model: getGPTModel(params.person),
-                    initialPrompt: getInitialPrompt(params.person)
+                    initialPrompt: getInitialPrompt(params.person),
+                    person: getName(params.person),
                 });
                 console.log('Created new chat document: ', chatDocRef.id)
 
