@@ -2,10 +2,8 @@
 
 import { database } from '@/lib/firebase/config';
 import { collection, Timestamp, query, onSnapshot, getDocs, orderBy, addDoc, doc, getDoc, limit } from 'firebase/firestore';
-import TextStrip from '@/components/TextStrip'
 import { useState, useEffect } from 'react';
 import TextBubble, { Props as TextBubbleProps } from '@/components/TextBubble'
-import TextBar from '@/components/TextBar';
 import { Button } from 'flowbite-react';
 
 
@@ -20,7 +18,7 @@ export default function Page({ params }: { params: { id: string } }) {
 
   const getNotes = () => {
     getDocs(query(dbInstance, orderBy('textTime', 'asc')))
-      .then((docs) => {
+      .then(docs => {
         setNotesArray([]);
         console.log('Docs has ' + docs.size + ' elements')
         docs.forEach((doc: any) => {
@@ -28,10 +26,17 @@ export default function Page({ params }: { params: { id: string } }) {
           const newElem: TextBubbleProps = { author: data.textAuthor, description: data.textContent, time: data.textTime, model: 'unknown' };
           setNotesArray(arr => [...arr, newElem]);
         })
-      });
+        // set scroll to bottom of #scroll-container
+        // but after a delay of 250ms
+        // so that the messages have time to load
+        setTimeout(() => {
+          const scrollContainer = document.getElementById('scroll-container');
+          if (scrollContainer) {
+            scrollContainer.scrollIntoView(false);
+          }
+        }, 250);
+      })
   }
-
-  console.log('hello')
 
   useEffect(() => {
     getDoc(chatDocRef).then((docSnap) => {
@@ -109,7 +114,7 @@ export default function Page({ params }: { params: { id: string } }) {
         {chatInfo ? `Talking to ${chatInfo.person}` : 'Loading...'}
       </h1>
       <div style={{ width: "100vw", marginBottom: "50px", maxHeight: "80vh", overflowY: "scroll" }}>
-        <div className='flex flex-col space-y-3'>
+        <div className='flex flex-col space-y-3' id='scroll-container'>
           {notesArray.map((obj, i) => <TextBubble key={i} model={chatInfo.model} author={obj.author} description={obj.description} time={obj.time} />)}
         </div>
       </div>
