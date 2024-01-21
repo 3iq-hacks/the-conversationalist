@@ -33,6 +33,17 @@ export default function Page({ params }: { params: { person: string } }) {
             try {
                 console.log('Creating new collection')
 
+                // test firestore connection
+                console.log('Testing firestore connection...')
+                const testDocRef = collection(database, 'test');
+                console.log('Got test collection: ', testDocRef)
+                const testDoc = await addDoc(testDocRef, {
+                    createdAt: Timestamp.now(),
+                    test: true,
+                    nodeEnv: process.env.NODE_ENV
+                });
+                console.log('Created test document: ', testDoc.id)
+
                 // create a new firebase collection inside /chats
                 // and redirect to /chats/:id
                 const chats = collection(database, 'chats');
